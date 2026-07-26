@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Job Card &amp; Billing Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark">JC</span>
+      <div>
+        <h1>Job Card &amp; Billing Register</h1>
+        <p class="topbar__sub">Every job, every part, one number everyone agrees on.</p>
+      </div>
+    </div>
+    <button id="btn-new" class="btn btn--primary">+ New job card</button>
+  </header>
+
+  <main class="wrap">
+
+    <section class="controls" aria-label="Search and filter">
+      <div class="field field--search">
+        <label for="search" class="sr-only">Search</label>
+        <input id="search" type="text" placeholder="Search job no, vehicle no, customer, or work..." />
+      </div>
+      <div class="field">
+        <label for="status-filter">Status</label>
+        <select id="status-filter">
+          <option value="All">All</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Overdue">Overdue</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <div class="count-pill" id="result-count">-- records</div>
+    </section>
+
+    <section id="state-loading" class="state-panel" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Loading job cards…</p>
+    </section>
+
+    <section id="state-error" class="state-panel state-panel--error" hidden>
+      <p class="state-panel__title">Something went wrong</p>
+      <p id="error-message">Could not load job cards.</p>
+      <button id="btn-retry" class="btn btn--ghost">Try again</button>
+    </section>
+
+    <section id="state-empty" class="state-panel" hidden>
+      <p class="state-panel__title">No job cards yet</p>
+      <p>Add the first job card to start the register.</p>
+      <button id="btn-empty-new" class="btn btn--primary">+ New job card</button>
+    </section>
+
+    <section id="state-no-results" class="state-panel" hidden>
+      <p class="state-panel__title">No matching job cards</p>
+      <p>Try a different search term or set the status filter back to "All".</p>
+    </section>
+
+    <section id="job-list" class="job-list" hidden></section>
+
+  </main>
+
+  <!-- Job card detail / edit / create modal -->
+  <div id="modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal__header">
+        <h2 id="modal-title">New job card</h2>
+        <button id="modal-close" class="modal__close" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="job-form" class="modal__body" novalidate>
+        <input type="hidden" id="f-job-id" />
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-vehicle-no">Vehicle number *</label>
+            <input id="f-vehicle-no" name="vehicle_no" type="text" placeholder="TN22AB1234" />
+            <p class="form-error" data-for="vehicle_no"></p>
+          </div>
+          <div class="form-field">
+            <label for="f-customer">Customer name *</label>
+            <input id="f-customer" name="customer" type="text" placeholder="Customer name" />
+            <p class="form-error" data-for="customer"></p>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="f-work-description">Work carried out</label>
+          <textarea id="f-work-description" name="work_description" rows="2" placeholder="e.g. Front brake pad replacement"></textarea>
+          <p class="form-error" data-for="work_description"></p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-parts-cost">Parts cost (₹)</label>
+            <input id="f-parts-cost" name="parts_cost" type="number" min="0" step="1" placeholder="0" />
+            <p class="form-error" data-for="parts_cost"></p>
+          </div>
+          <div class="form-field">
+            <label for="f-labour-cost">Labour cost (₹)</label>
+            <input id="f-labour-cost" name="labour_cost" type="number" min="0" step="1" placeholder="0" />
+            <p class="form-error" data-for="labour_cost"></p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-date-in">Date in *</label>
+            <input id="f-date-in" name="date_in" type="date" />
+            <p class="form-error" data-for="date_in"></p>
+          </div>
+          <div class="form-field">
+            <label for="f-date-out">Date out</label>
+            <input id="f-date-out" name="date_out" type="date" />
+            <p class="form-error" data-for="date_out"></p>
+            <p class="form-hint">Leave blank while the vehicle is still in the shop.</p>
+          </div>
+        </div>
+
+        <div id="live-total" class="live-total" hidden>
+          Bill total: <strong id="live-total-value">₹0</strong>
+        </div>
+
+        <p id="form-general-error" class="form-error form-error--general" hidden></p>
+
+        <div class="modal__footer">
+          <button type="button" id="btn-delete" class="btn btn--danger" hidden>Delete</button>
+          <div class="modal__footer-right">
+            <button type="button" id="btn-cancel" class="btn btn--ghost">Cancel</button>
+            <button type="submit" id="btn-save" class="btn btn--primary">Save job card</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

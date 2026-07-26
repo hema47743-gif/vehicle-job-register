@@ -1,0 +1,17 @@
+{
+  "name": "vehicle-job-register",
+  "version": "1.0.0",
+  "description": "Vehicle Service Centre Job Card and Billing Register - SIH 2026 Practical Assessment",
+  "main": "server/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "seed": "node server/seed.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
