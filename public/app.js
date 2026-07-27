@@ -172,6 +172,7 @@ function openCreate() {
   clearFieldErrors();
   els.liveTotal.hidden = true;
   els.modalBackdrop.hidden = false;
+  els.modalBackdrop.style.display = 'flex';
   els.fVehicle.focus();
 }
 
@@ -194,10 +195,12 @@ function openEdit(jobId) {
   clearFieldErrors();
   updateLiveTotal();
   els.modalBackdrop.hidden = false;
+  els.modalBackdrop.style.display = 'flex';
 }
 
 function closeModal() {
   els.modalBackdrop.hidden = true;
+  els.modalBackdrop.style.display = 'none';
 }
 
 function updateLiveTotal() {
