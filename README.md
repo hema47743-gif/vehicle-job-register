@@ -63,9 +63,9 @@ The homepage lists every job card as a ticket-style card showing vehicle number,
 
 ### Screenshots
 
-| Main view | Job card form | Filtered / mobile view |
-|---|---|---|
-| ![Main view](screenshot/screenshot1.jpeg) | ![Job card form](screenshot/screenshot2.jpeg) | ![Filtered view](screenshot/screenshot3.jpeg) |
+| Main view | Job card form | Filtered / mobile view | Home page |
+|---|---|---|---|
+| ![Main view](screenshot/screenshot1.jpeg) | ![Job card form](screenshot/screenshot2.jpeg) | ![Filtered view](screenshot/screenshot3.jpeg) | ![Home page](screenshot/screenshot4.png) |
 
 ### Demo video
 
@@ -125,7 +125,8 @@ vehicle-job-register/
 ├── screenshot/
 │   ├── screenshot1.jpeg   # Main view
 │   ├── screenshot2.jpeg   # Job card form
-│   └── screenshot3.jpeg   # Filtered / mobile view
+│   ├── screenshot3.jpeg   # Filtered / mobile view
+│   └── screenshot4.png  # Home page
 ├── video/
 │   └── record 1.mp4        # Full demo walkthrough
 ├── server/
